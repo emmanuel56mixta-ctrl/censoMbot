@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>mBot Jalisco | Mapa de planteles</title>
+  <meta name="description" content="Mapa interactivo de escuelas de Jalisco que reportan contar con mBot.">
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://tile.openstreetmap.org">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIINfQ3iXTnUrtbMPPhMZ7tvigxFwV6BVsE=" crossorigin="">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div>
+        <div class="eyebrow">Inventario territorial · Robótica educativa</div>
+        <h1>mBot en Jalisco</h1>
+        <p class="subtitle">Ubicación de planteles, nivel educativo, cantidad de kits y condición de uso reportada.</p>
+      </div>
+      <div class="source">Fuente: “Solicitud de Información Mbot” + padrón institucional “UBICACION DE ESCUELAS_20260429”. Se omiten datos personales de directivos y responsables.</div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="kpis" aria-label="Resumen">
+      <article class="kpi"><div class="label">Planteles visibles</div><div class="value" id="kpiSchools">—</div><div class="small">de 145 planteles únicos</div></article>
+      <article class="kpi"><div class="label">Kits</div><div class="value" id="kpiKits">—</div><div class="small">suma de cantidades interpretables</div></article>
+      <article class="kpi"><div class="label">En uso</div><div class="value" id="kpiUse">—</div><div class="small">planteles con actividad vigente</div></article>
+      <article class="kpi"><div class="label">Primarias</div><div class="value" id="kpiPrimary">—</div><div class="small">según encuesta</div></article>
+      <article class="kpi"><div class="label">Secundarias</div><div class="value" id="kpiSecondary">—</div><div class="small">según encuesta</div></article>
+    </section>
+
+    <section class="filters" aria-label="Filtros del mapa">
+      <div class="field search">
+        <label for="q">Buscar escuela o CCT</label>
+        <input id="q" type="search" placeholder="Ej. 14DPR… o nombre de la escuela" autocomplete="off">
+      </div>
+      <div class="field"><label for="level">Nivel</label><select id="level"><option value="">Todos</option></select></div>
+      <div class="field"><label for="region">Región</label><select id="region"><option value="">Todas</option></select></div>
+      <div class="field"><label for="municipality">Municipio</label><select id="municipality"><option value="">Todos</option></select></div>
+      <div class="field"><label for="condition">Condición</label><select id="condition"><option value="">Todas</option></select></div>
+      <div class="field">
+        <label for="kits">Kits</label>
+        <select id="kits">
+          <option value="">Cualquier cantidad</option>
+          <option value="1-4">1 a 4</option><option value="5">5</option><option value="6-9">6 a 9</option><option value="10+">10 o más</option><option value="unknown">Sin dato</option>
+        </select>
+      </div>
+      <button class="reset" id="reset" type="button">Restablecer</button>
+    </section>
+
+    <div class="quick">
+      <button class="chip" id="chipAll" type="button">Todos</button>
+      <button class="chip" id="chipActive" type="button">Sólo en uso</button>
+      <button class="chip" id="chipAttention" type="button">Requieren atención</button>
+      <div class="legend" aria-label="Simbología">
+        <span><i class="dot" style="background:var(--use)"></i>En uso</span>
+        <span><i class="dot" style="background:var(--off)"></i>Sin uso</span>
+        <span><i class="dot" style="background:var(--limited)"></i>Uso limitado</span>
+        <span><i class="dot" style="background:var(--training)"></i>Capacitación</span>
+        <span><i class="dot" style="background:var(--damage)"></i>Dañados</span>
+      </div>
+    </div>
+
+    <section class="main">
+      <article class="map-card">
+        <div class="map-head">
+          <div><strong>Explorar el mapa</strong><div class="map-note">El tamaño de cada punto representa aproximadamente el número de kits.</div></div>
+          <button type="button" class="download" id="fit">Ver todo</button>
+        </div>
+        <div id="map" role="application" aria-label="Mapa de escuelas con mBot"></div>
+      </article>
+
+      <aside class="list-card">
+        <div class="list-head">
+          <div><strong>Planteles</strong><div class="result-count" id="resultCount">—</div></div>
+          <button type="button" class="download" id="downloadCsv">Exportar CSV</button>
+        </div>
+        <div id="results"></div>
+      </aside>
+    </section>
+
+    <p class="footer-note">Criterio de depuración: la encuesta contiene 147 registros con mBot y 145 CCT únicos. En CCT duplicados se conserva el reporte más reciente. Se hicieron 6 ajustes de CCT únicamente para localizar planteles en el padrón; el CCT capturado originalmente se mantiene visible. “Kits” suma 940 unidades interpretables; un plantel reportó “X” y se conserva como cantidad desconocida.</p>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="data-1.js"></script>
+  <script src="data-2.js"></script>
+  <script src="data-3.js"></script>
+  <script src="data-4.js"></script>
+  <script src="data-5.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
