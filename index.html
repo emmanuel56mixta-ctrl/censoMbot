@@ -2,14 +2,13 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>mBot Jalisco | Mapa de planteles</title>
   <meta name="description" content="Mapa interactivo de escuelas de Jalisco que reportan contar con mBot.">
-  <link rel="preconnect" href="https://unpkg.com">
-  <link rel="preconnect" href="https://tile.openstreetmap.org">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIINfQ3iXTnUrtbMPPhMZ7tvigxFwV6BVsE=" crossorigin="">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://tile.openstreetmap.org" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="styles.css?v=20260901-2">
 </head>
 <body>
   <header class="topbar">
@@ -45,14 +44,18 @@
         <label for="kits">Kits</label>
         <select id="kits">
           <option value="">Cualquier cantidad</option>
-          <option value="1-4">1 a 4</option><option value="5">5</option><option value="6-9">6 a 9</option><option value="10+">10 o más</option><option value="unknown">Sin dato</option>
+          <option value="1-4">1 a 4</option>
+          <option value="5">5</option>
+          <option value="6-9">6 a 9</option>
+          <option value="10+">10 o más</option>
+          <option value="unknown">Sin dato</option>
         </select>
       </div>
       <button class="reset" id="reset" type="button">Restablecer</button>
     </section>
 
     <div class="quick">
-      <button class="chip" id="chipAll" type="button">Todos</button>
+      <button class="chip active" id="chipAll" type="button">Todos</button>
       <button class="chip" id="chipActive" type="button">Sólo en uso</button>
       <button class="chip" id="chipAttention" type="button">Requieren atención</button>
       <div class="legend" aria-label="Simbología">
@@ -70,7 +73,10 @@
           <div><strong>Explorar el mapa</strong><div class="map-note">El tamaño de cada punto representa aproximadamente el número de kits.</div></div>
           <button type="button" class="download" id="fit">Ver todo</button>
         </div>
-        <div id="map" role="application" aria-label="Mapa de escuelas con mBot"></div>
+        <div class="map-wrap">
+          <div id="map" role="application" aria-label="Mapa de escuelas con mBot"></div>
+          <div id="mapStatus" class="map-status" hidden></div>
+        </div>
       </article>
 
       <aside class="list-card">
@@ -85,13 +91,12 @@
     <p class="footer-note">Criterio de depuración: la encuesta contiene 147 registros con mBot y 145 CCT únicos. En CCT duplicados se conserva el reporte más reciente. Se hicieron 6 ajustes de CCT únicamente para localizar planteles en el padrón; el CCT capturado originalmente se mantiene visible. “Kits” suma 940 unidades interpretables; un plantel reportó “X” y se conserva como cantidad desconocida.</p>
   </main>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="data-1.js"></script>
-  <script src="data-2.js"></script>
-  <script src="data-3.js"></script>
-  <script src="data-4.js"></script>
-  <script src="data-5.js"></script>
-  <script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="data-1.js?v=20260901-2"></script>
+  <script src="data-2.js?v=20260901-2"></script>
+  <script src="data-3.js?v=20260901-2"></script>
+  <script src="data-4.js?v=20260901-2"></script>
+  <script src="data-5.js?v=20260901-2"></script>
+  <script src="app.js?v=20260901-2"></script>
 </body>
 </html>
